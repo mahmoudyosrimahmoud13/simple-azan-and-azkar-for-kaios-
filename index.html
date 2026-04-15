@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أذان وأذكار</title>
+    <style>
+        body {
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            margin: 0;
+            font-family: sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #header {
+            background: rgba(0, 0, 0, 0.75);
+            border-bottom: 2px solid #00bfa5;
+            padding: 3px;
+        }
+
+        #clock {
+            font-size: 38px;
+            font-weight: bold;
+            color: #fff;
+            margin: 0;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        #h-date {
+            font-size: 14px;
+            color: #00ffcc;
+            font-weight: bold;
+            margin: 2px 0;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .nav-item {
+            padding: 6px;
+            margin: 3px auto;
+            width: 80%;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid #00bfa5;
+            border-radius: 6px;
+            font-size: 13px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-item.focus {
+            background: #00bfa5;
+            color: #000;
+            font-weight: bold;
+            border: 2px solid #fff;
+        }
+
+        #prayer-table {
+            width: 90%;
+            margin: 5px auto;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #prayer-table td {
+            padding: 3px 10px;
+            border-bottom: 1px solid #333;
+            font-size: 14px;
+        }
+
+        #prayer-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .time {
+            text-align: left;
+            color: #00ffcc;
+            font-weight: bold;
+        }
+
+        #hadith-container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            border: 1px solid #444;
+            height: 75px;
+            width: 90%;
+            margin: 5px auto;
+            padding: 5px;
+            text-align: center;
+            line-height: 1.4;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            overflow-y: auto;
+        }
+
+        #hadith-title {
+            font-size: 12px;
+            color: #00ffcc;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        #hadith-text {
+            font-size: 12px;
+            word-wrap: break-word;
+        }
+
+        #status-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            color: #00ffcc;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+            padding: 4px 0;
+            border-top: 1px solid #00bfa5;
+            z-index: 500;
+        }
+
+        #sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 65%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            border-left: 2px solid #00bfa5;
+            transition: right 0.3s ease-in-out;
+            z-index: 1000;
+            overflow-y: auto;
+            text-align: right;
+            padding-top: 10px;
+            padding-bottom: 30px;
+        }
+
+        .sidebar-title {
+            color: #00ffcc;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+        }
+
+        .menu-item {
+            padding: 10px 15px;
+            color: #fff;
+            font-size: 15px;
+            border-bottom: 1px solid #222;
+            transition: background 0.1s;
+        }
+
+        .selected-item {
+            background: #00bfa5 !important;
+            color: #000 !important;
+            font-weight: bold !important;
+        }
+
+        #help-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            color: #fff;
+            padding: 15px;
+            box-sizing: border-box;
+            text-align: right;
+        }
+
+        .help-title {
+            color: #00ffcc;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #00bfa5;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+
+        .help-line {
+            margin: 8px 0;
+            font-size: 13px;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 5px;
+        }
+
+        .help-key {
+            color: #00bfa5;
+            font-weight: bold;
+            font-size: 14px;
+            display: inline-block;
+            width: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="help-modal">
+        <div class="help-title">دليل المستخدم</div>
+        <div class="help-line"><span class="help-key">(1)</span> إظهار / إخفاء المساعدة</div>
+        <div class="help-line"><span class="help-key">(0)</span> تجربة الأذان والاهتزاز</div>
+        <div class="help-line"><span class="help-key">(2)</span> جلب حديث عشوائي</div>
+        <div class="help-line"><span class="help-key">(5)</span> تحديث المواقيت</div>
+        <div class="help-line"><span class="help-key">(◀/▶)</span> قائمة المحافظات</div>
+        <div class="help-line"><span class="help-key">(▲/▼)</span> التنقل بالقائمة</div>
+        <div class="help-line" style="text-align:center; color:#777; margin-top:20px;">اضغط 1 للعودة</div>
+    </div>
+
+    <div id="sidebar">
+        <div class="sidebar-title">اختر المحافظة</div>
+        <div id="menu-list"></div>
+    </div>
+
+    <div id="header">
+        <div id="clock">00:00</div>
+        <div id="h-date">--/--/----</div>
+        <div id="city-box" class="nav-item focus">القاهرة</div>
+    </div>
+
+    <table id="prayer-table">
+        <tr>
+            <td>الفجر</td>
+            <td class="time" id="Fajr">--:--</td>
+        </tr>
+        <tr>
+            <td>الظهر</td>
+            <td class="time" id="Dhuhr">--:--</td>
+        </tr>
+        <tr>
+            <td>العصر</td>
+            <td class="time" id="Asr">--:--</td>
+        </tr>
+        <tr>
+            <td>المغرب</td>
+            <td class="time" id="Maghrib">--:--</td>
+        </tr>
+        <tr>
+            <td>العشاء</td>
+            <td class="time" id="Isha">--:--</td>
+        </tr>
+    </table>
+
+    <div id="hadith-container">
+        <div id="hadith-title">حديث اليوم</div>
+        <div id="hadith-text">اضغط (2) لجلب حديث.</div>
+    </div>
+
+    <div id="status-bar">1: مساعدة | 0: أذان | 5: تحديث</div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "أذان وأذكار",
+  "description": "مواقيت، أحاديث، وتاريخ هجري",
+  "launch_path": "/index.html",
+  "type": "privileged",
+  "icons": {
+    "128": "/icon.png"
+  },
+  "permissions": {
+    "desktop-notification": {},
+    "systemXHR": {},
+    "audio-channel-alarm": {},
+    "vibration": {}
+  },
+  "default_locale": "ar"
+}
